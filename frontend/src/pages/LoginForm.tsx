@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import easyGeneratorLogo from '../assets/easy-generator-logo.svg';
 
 export const LoginForm: React.FC = () => {
   const { login } = useAuth();
+  const location = useLocation();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -13,6 +14,15 @@ export const LoginForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [sessionMessage, setSessionMessage] = useState<string>('');
+
+  useEffect(() => {
+    // Check for expired session message
+    const searchParams = new URLSearchParams(location.search);
+    if (searchParams.get('expired') === 'true') {
+      setSessionMessage('Your session has expired. Please log in again.');
+    }
+  }, [location]);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -50,6 +60,7 @@ export const LoginForm: React.FC = () => {
     setIsLoading(true);
     try {
       await login(formData);
+      setSessionMessage('');
     } catch (error: any) {
       setErrors({
         submit: error.response?.data?.message || 'Invalid credentials'
@@ -85,6 +96,12 @@ export const LoginForm: React.FC = () => {
                 Welcome back
               </h1>
             </div>
+
+            {sessionMessage && (
+              <div className="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded-lg">
+                {sessionMessage}
+              </div>
+            )}
 
             <form className="space-y-6" onSubmit={handleSubmit} noValidate>
               <div className="space-y-5">

@@ -1,11 +1,11 @@
-import axios from 'axios';
 import { SignUpData, LoginData, AuthResponse } from '../types/auth';
+import axiosInstance from './axios.interceptor';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 const authService = {
   async signup(data: SignUpData): Promise<AuthResponse> {
-    const response = await axios.post<AuthResponse>(`${API_URL}/auth/signup`, data);
+    const response = await axiosInstance.post<AuthResponse>('/auth/signup', data);
     if (response.data.token) {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -14,7 +14,7 @@ const authService = {
   },
 
   async login(data: LoginData): Promise<AuthResponse> {
-    const response = await axios.post<AuthResponse>(`${API_URL}/auth/login`, data);
+    const response = await axiosInstance.post<AuthResponse>('/auth/login', data);
     if (response.data.token) {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -41,6 +41,20 @@ const authService = {
 
   isAuthenticated(): boolean {
     return !!this.getToken();
+  },
+
+  // New methods for session management
+  async getSessions(): Promise<any[]> {
+    const response = await axiosInstance.get('/sessions');
+    return response.data;
+  },
+
+  async revokeSession(sessionId: string): Promise<void> {
+    await axiosInstance.delete(`/sessions/${sessionId}`);
+  },
+
+  async revokeAllSessions(): Promise<void> {
+    await axiosInstance.delete('/sessions');
   }
 };
 

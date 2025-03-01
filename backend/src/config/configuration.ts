@@ -21,10 +21,10 @@ export const appConfig = registerAs('app', () => {
 });
 
 export const databaseConfig = registerAs('database', () => ({
-  uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/easy-generator-auth',
+  uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/easy-generator',
 }));
 
 export const authConfig = registerAs('auth', () => ({
   jwtSecret: process.env.JWT_SECRET || 'your-super-secret-key-change-in-production',
-  jwtExpiration: process.env.JWT_EXPIRATION || '1d',
+  jwtExpiration: process.env.JWT_EXPIRATION || '15d',
 })); 
