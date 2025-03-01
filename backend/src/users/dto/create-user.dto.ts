@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsString, MinLength, Matches } from 'class-validator';
+import { IsEmail, IsString, MinLength, Matches, IsBoolean, IsNotEmpty } from 'class-validator';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -32,4 +32,43 @@ export class CreateUserDto {
     },
   )
   password: string;
+
+  @ApiProperty({
+    description: 'Phone number',
+    example: '1234567890',
+  })
+  @IsString()
+  @IsNotEmpty()
+  phoneNumber: string;
+
+  @ApiProperty({
+    description: 'Country code for phone number',
+    example: '+1',
+  })
+  @IsString()
+  @IsNotEmpty()
+  countryCode: string;
+
+  @ApiProperty({
+    description: 'Company size',
+    example: '1-99 employees',
+  })
+  @IsString()
+  @IsNotEmpty()
+  companySize: string;
+
+  @ApiProperty({
+    description: 'Agreement to EULA',
+    example: true,
+  })
+  @IsBoolean()
+  @IsNotEmpty()
+  agreeToEula: boolean;
+
+  @ApiProperty({
+    description: 'Agreement to marketing communications',
+    example: false,
+  })
+  @IsBoolean()
+  agreeToMarketing: boolean;
 } 

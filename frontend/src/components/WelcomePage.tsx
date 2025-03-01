@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAuth } from '../hooks/useAuth';
+import easyGeneratorLogo from '../assets/easy-generator-logo.svg';
 
 export const WelcomePage: React.FC = () => {
   const { user, logout } = useAuth();
@@ -10,9 +11,7 @@ export const WelcomePage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex-shrink-0 flex items-center">
-              <h1 className="text-xl font-bold text-gray-800">
-                Easy Generator Auth
-              </h1>
+              <img src={easyGeneratorLogo} alt="Easy Generator" className="h-12" />
             </div>
             <div className="flex items-center">
               <button

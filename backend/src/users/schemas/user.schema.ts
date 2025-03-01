@@ -54,6 +54,54 @@ export class User {
   })
   password: string;
 
+  @ApiProperty({
+    description: 'Phone number',
+    example: '1234567890',
+  })
+  @Prop({
+    required: true,
+    trim: true,
+  })
+  phoneNumber: string;
+
+  @ApiProperty({
+    description: 'Country code for phone number',
+    example: '+1',
+  })
+  @Prop({
+    required: true,
+    trim: true,
+  })
+  countryCode: string;
+
+  @ApiProperty({
+    description: 'Company size',
+    example: '1-99 employees',
+  })
+  @Prop({
+    required: true,
+  })
+  companySize: string;
+
+  @ApiProperty({
+    description: 'Agreement to EULA',
+    example: true,
+  })
+  @Prop({
+    required: true,
+    default: false,
+  })
+  agreeToEula: boolean;
+
+  @ApiProperty({
+    description: 'Agreement to marketing communications',
+    example: false,
+  })
+  @Prop({
+    default: false,
+  })
+  agreeToMarketing: boolean;
+
   @Prop({
     default: false,
   })

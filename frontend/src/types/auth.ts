@@ -2,6 +2,11 @@ export interface SignUpData {
   email: string;
   name: string;
   password: string;
+  phoneNumber: string;
+  countryCode: string;
+  companySize: string;
+  agreeToEula: boolean;
+  agreeToMarketing: boolean;
 }
 
 export interface LoginData {
@@ -13,6 +18,11 @@ export interface User {
   _id: string;
   email: string;
   name: string;
+  phoneNumber: string;
+  countryCode: string;
+  companySize: string;
+  agreeToEula: boolean;
+  agreeToMarketing: boolean;
   isEmailVerified: boolean;
   createdAt: string;
   updatedAt: string;
