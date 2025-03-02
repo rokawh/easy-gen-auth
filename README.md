@@ -98,7 +98,47 @@ git clone git@github.com:rokawh/easy-gen-auth.git
 cd easy-gen-auth
 ```
 
-2. Build and run the containers:
+2. Create environment files:
+
+Root `.env` (create in project root directory):
+```bash
+# Required for JWT signing
+JWT_SECRET=your-super-secret-key-change-in-production
+
+# Optional overrides
+# THROTTLE_TTL=60
+# THROTTLE_LIMIT=10
+# MONGODB_URI=mongodb://mongodb:27017/easy-generator
+# CORS_ORIGIN=http://localhost
+```
+
+Backend `.env` (create in `backend` directory):
+```bash
+# Application
+PORT=3000
+NODE_ENV=development
+
+# Database
+MONGODB_URI=mongodb://mongodb:27017/easy-generator
+
+# Authentication
+JWT_SECRET=your-super-secret-key-change-in-production
+JWT_EXPIRATION=15d
+
+# Security
+CORS_ORIGIN=http://localhost:5173
+
+# Rate Limiting
+THROTTLE_TTL=60
+THROTTLE_LIMIT=10
+```
+
+Frontend `.env` (create in `frontend` directory):
+```bash
+VITE_API_URL=http://localhost:3000
+```
+
+3. Build and run the containers:
 ```bash
 docker-compose up -d
 ```
