@@ -32,10 +32,13 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config;
 
     // Handle token expiration
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (
+      error.response?.status === 401 && 
+      !originalRequest._retry &&
+      originalRequest.url !== '/auth/login'
+    ) {
       originalRequest._retry = true;
 
-      // Clear auth state and redirect to login
       authService.logout();
       window.location.href = '/login?expired=true';
 

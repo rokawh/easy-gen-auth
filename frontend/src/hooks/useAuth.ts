@@ -50,7 +50,7 @@ export const useAuth = () => {
       token: null,
       isAuthenticated: false,
     });
-    navigate('/login');
+    navigate('/login?expired=true');
   }, [navigate]);
 
   useEffect(() => {

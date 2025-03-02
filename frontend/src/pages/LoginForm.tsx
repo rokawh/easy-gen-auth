@@ -20,7 +20,6 @@ export const LoginForm: React.FC = () => {
   const [sessionMessage, setSessionMessage] = useState<string>('');
 
   useEffect(() => {
-    // Check for expired session message
     const searchParams = new URLSearchParams(location.search);
     if (searchParams.get('expired') === 'true') {
       setSessionMessage('Your session has expired. Please log in again.');

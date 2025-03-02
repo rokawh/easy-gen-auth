@@ -40,8 +40,6 @@ import {
         },
         retryAttempts: 5,
         retryDelay: 3000,
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
         serverSelectionTimeoutMS: 5000,
         heartbeatFrequencyMS: 10000,
         maxPoolSize: 10,
