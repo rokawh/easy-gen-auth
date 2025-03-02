@@ -156,19 +156,24 @@ git clone git@github.com:rokawh/easy-gen-auth.git
 cd easy-gen-auth
 ```
 
-2. Install backend dependencies:
+2. Install all dependencies from the root directory:
+```bash
+npm run install:all
+```
+
+3. Or install backend dependencies:
 ```bash
 cd backend
 npm install
 ```
 
-3. Install frontend dependencies:
+4. And install frontend dependencies:
 ```bash
 cd ../frontend
 npm install
 ```
 
-4. Set up environment variables:
+5. Set up environment variables:
 
 Backend (`.env`):
 ```bash
@@ -210,12 +215,7 @@ docker-compose up -d
 mongod
 ```
 
-2. Install all dependencies from the root directory:
-```bash
-npm run install:all
-```
-
-3. Start the backend server:
+2. Start the backend server:
 ```bash
 cd backend
 npm run start:dev
@@ -224,7 +224,7 @@ npm run start:dev
 The backend server will start on http://localhost:3000
 API documentation will be available at http://localhost:3000/api
 
-4. Start the frontend development server:
+3. Start the frontend development server:
 ```bash
 cd frontend
 npm run dev
