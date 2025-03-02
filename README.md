@@ -94,8 +94,8 @@ easy-generator-auth/
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd easy-generator-auth
+git clone git@github.com:rokawh/easy-gen-auth.git
+cd easy-gen-auth
 ```
 
 2. Build and run the containers:
@@ -233,12 +233,6 @@ The API implements rate limiting to prevent abuse:
 Run backend tests:
 ```bash
 cd backend
-npm run test
-```
-
-Run frontend tests:
-```bash
-cd frontend
 npm run test
 ```
 
