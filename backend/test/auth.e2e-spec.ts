@@ -3,9 +3,9 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
 import { Connection } from 'mongoose';
 import { getConnectionToken } from '@nestjs/mongoose';
-import { AppModule } from '../src/auth/modules/app.module';
-import { CreateUserDto } from '../src/auth/dto/create-user.dto';
-import { LoginDto } from '../src/auth/dto/login.dto';
+import { AppModule } from '@modules/app.module';
+import { CreateUserDto } from '@dto/create-user.dto';
+import { LoginDto } from '@dto/login.dto';
 
 describe('AuthController (e2e)', () => {
   let app: INestApplication;

@@ -2,16 +2,16 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ScheduleModule } from '@nestjs/schedule';
-import { AppController } from '../controllers/app.controller';
-import { AuthModule } from '../modules/auth.module';
-import { UsersModule } from '../modules/users.module';
-import { CommonModule } from '../../common/common.module';
+import { AppController } from '@controllers/app.controller';
+import { AuthModule } from '@modules/auth.module';
+import { UsersModule } from '@modules/users.module';
+import { CommonModule } from '@modules/common.module';
 import { 
   configValidationSchema,
   appConfig,
   databaseConfig,
   authConfig,
-} from '../../config/configuration';
+} from '@config/configuration';
 
 @Module({
   imports: [

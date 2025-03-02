@@ -5,8 +5,8 @@ import helmet from 'helmet';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
-import { AppModule } from './auth/modules/app.module';
-import { LoggerService } from './common/services/logger.service';
+import { AppModule } from '@modules/app.module';
+import { LoggerService } from '@services/logger.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
