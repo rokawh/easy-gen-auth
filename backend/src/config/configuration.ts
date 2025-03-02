@@ -31,6 +31,7 @@ export const databaseConfig = registerAs('database', () => ({
 }));
 
 export const authConfig = registerAs('auth', () => ({
-  jwtSecret: process.env.JWT_SECRET || 'your-super-secret-key-change-in-production',
+  jwtSecret:
+    process.env.JWT_SECRET || 'your-super-secret-key-change-in-production',
   jwtExpiration: process.env.JWT_EXPIRATION || '15d',
 }));

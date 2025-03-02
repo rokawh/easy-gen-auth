@@ -85,4 +85,4 @@ export class Session {
   isActive: boolean;
 }
 
-export const SessionSchema = SchemaFactory.createForClass(Session); 
+export const SessionSchema = SchemaFactory.createForClass(Session);

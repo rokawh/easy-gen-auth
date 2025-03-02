@@ -27,7 +27,7 @@ export class User {
   @Prop({
     required: true,
     trim: true,
-    lowercase: true
+    lowercase: true,
   })
   email: string;
 
@@ -39,7 +39,7 @@ export class User {
   @Prop({
     required: true,
     minlength: 3,
-    trim: true
+    trim: true,
   })
   name: string;
 
@@ -112,4 +112,4 @@ export const UserSchema = SchemaFactory.createForClass(User);
 // Add compound indexes
 UserSchema.index({ email: 1 }, { unique: true });
 UserSchema.index({ name: 1 });
-UserSchema.index({ createdAt: -1 }); 
+UserSchema.index({ createdAt: -1 });

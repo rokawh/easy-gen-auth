@@ -1,8 +1,22 @@
-import { Controller, Get, Delete, Param, UseGuards, Req, HttpCode, HttpStatus } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Delete,
+  Param,
+  UseGuards,
+  Req,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { SessionsService } from '@services/sessions.service';
-import { Session, SessionDocument } from '@schemas/session.schema';
+import { Session } from '@schemas/session.schema';
 
 @ApiTags('Sessions')
 @ApiBearerAuth()
@@ -52,10 +66,10 @@ export class SessionsController {
     const currentSession = await this.sessionsService.validateSession(
       req.headers.authorization?.split(' ')[1],
     );
-    
+
     await this.sessionsService.revokeAllUserSessions(
       req.user._id,
       currentSession?.id,
     );
   }
-} 
+}

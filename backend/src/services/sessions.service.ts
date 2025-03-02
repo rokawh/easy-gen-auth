@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  OnModuleInit,
+  OnModuleDestroy,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Session, SessionDocument } from '@schemas/session.schema';
@@ -9,17 +14,20 @@ export class SessionsService implements OnModuleInit, OnModuleDestroy {
   private cleanupInterval: NodeJS.Timeout;
 
   constructor(
-    @InjectModel(Session.name) private readonly sessionModel: Model<SessionDocument>,
+    @InjectModel(Session.name)
+    private readonly sessionModel: Model<SessionDocument>,
     private readonly configService: ConfigService,
   ) {}
 
   onModuleInit() {
-    // Run cleanup every hour
-    this.cleanupInterval = setInterval(() => {
-      this.handleExpiredSessions().catch(error => {
-        console.error('Error cleaning up expired sessions:', error);
-      });
-    }, 60 * 60 * 1000); // 1 hour
+    this.cleanupInterval = setInterval(
+      () => {
+        this.handleExpiredSessions().catch((error) => {
+          console.error('Error cleaning up expired sessions:', error);
+        });
+      },
+      60 * 60 * 1000,
+    );
   }
 
   onModuleDestroy() {
@@ -34,20 +42,21 @@ export class SessionsService implements OnModuleInit, OnModuleDestroy {
     userAgent: string,
     ipAddress: string,
   ): Promise<Session> {
-    const expiresIn = this.configService.get<string>('auth.jwtExpiration') || '1d';
+    const expiresIn =
+      this.configService.get<string>('auth.jwtExpiration') || '1d';
     const expiresAt = new Date();
-    
+
     // Convert expiration time to milliseconds and add to current time
     const matches = expiresIn.match(/^(\d+)([dhms])$/);
     if (matches) {
       const [, amount, unit] = matches;
       const multipliers: Record<string, number> = {
-        'd': 24 * 60 * 60 * 1000, // days to ms
-        'h': 60 * 60 * 1000,      // hours to ms
-        'm': 60 * 1000,           // minutes to ms
-        's': 1000,                // seconds to ms
+        d: 24 * 60 * 60 * 1000,
+        h: 60 * 60 * 1000,
+        m: 60 * 1000,
+        s: 1000,
       };
-      
+
       const multiplier = multipliers[unit];
       if (multiplier) {
         expiresAt.setTime(expiresAt.getTime() + parseInt(amount) * multiplier);
@@ -97,7 +106,10 @@ export class SessionsService implements OnModuleInit, OnModuleDestroy {
     }
   }
 
-  async revokeAllUserSessions(userId: string, exceptSessionId?: string): Promise<void> {
+  async revokeAllUserSessions(
+    userId: string,
+    exceptSessionId?: string,
+  ): Promise<void> {
     const query: any = {
       userId: new Types.ObjectId(userId),
       isActive: true,
@@ -133,7 +145,7 @@ export class SessionsService implements OnModuleInit, OnModuleDestroy {
         isActive: true,
         expiresAt: { $lte: new Date() },
       },
-      { 
+      {
         isActive: false,
         lastActivity: new Date(),
       },
@@ -156,4 +168,4 @@ export class SessionsService implements OnModuleInit, OnModuleDestroy {
 
     return session;
   }
-} 
+}

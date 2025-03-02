@@ -35,16 +35,16 @@ describe('AuthController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    
-    // Apply the same validation pipe as in main.ts
-    app.useGlobalPipes(new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-      transformOptions: {
-        enableImplicitConversion: true,
-      },
-    }));
+    app.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true,
+        transformOptions: {
+          enableImplicitConversion: true,
+        },
+      }),
+    );
 
     await app.init();
 
@@ -137,9 +137,7 @@ describe('AuthController (e2e)', () => {
     });
 
     it('should not access protected route without token', () => {
-      return request(app.getHttpServer())
-        .get('/protected')
-        .expect(401);
+      return request(app.getHttpServer()).get('/protected').expect(401);
     });
 
     it('should not access protected route with invalid token', () => {
@@ -149,4 +147,4 @@ describe('AuthController (e2e)', () => {
         .expect(401);
     });
   });
-}); 
+});

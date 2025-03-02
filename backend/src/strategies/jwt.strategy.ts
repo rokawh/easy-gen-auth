@@ -37,7 +37,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!token) {
       throw new UnauthorizedException('No token provided');
     }
-    
+
     // Validate that the session is active
     const session = await this.sessionsService.validateSession(token);
     if (!session) {
@@ -46,4 +46,4 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     return user;
   }
-} 
+}

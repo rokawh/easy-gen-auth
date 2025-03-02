@@ -15,8 +15,13 @@ export class AuthService {
     private readonly sessionsService: SessionsService,
   ) {}
 
-  async signup(createUserDto: CreateUserDto, req: Request): Promise<{ token: string; user: Partial<User> }> {
-    const user = await this.usersService.create(createUserDto) as UserDocument;
+  async signup(
+    createUserDto: CreateUserDto,
+    req: Request,
+  ): Promise<{ token: string; user: Partial<User> }> {
+    const user = (await this.usersService.create(
+      createUserDto,
+    )) as UserDocument;
     const token = this.generateToken(user);
 
     // Create a new session
@@ -29,16 +34,19 @@ export class AuthService {
 
     const userObj = user.toObject();
     delete userObj.password;
-    
+
     return {
       token,
       user: userObj,
     };
   }
 
-  async login(loginDto: LoginDto, req: Request): Promise<{ token: string; user: Partial<User> }> {
+  async login(
+    loginDto: LoginDto,
+    req: Request,
+  ): Promise<{ token: string; user: Partial<User> }> {
     const { email, password } = loginDto;
-    const user = await this.usersService.findByEmail(email) as UserDocument;
+    const user = (await this.usersService.findByEmail(email)) as UserDocument;
 
     const isPasswordValid = await this.usersService.validatePassword(
       user,
@@ -82,4 +90,4 @@ export class AuthService {
       return false;
     }
   }
-} 
+}

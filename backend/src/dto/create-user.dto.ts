@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsString, MinLength, Matches, IsBoolean, IsNotEmpty } from 'class-validator';
+import {
+  IsEmail,
+  IsString,
+  MinLength,
+  Matches,
+  IsBoolean,
+  IsNotEmpty,
+} from 'class-validator';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -24,13 +31,10 @@ export class CreateUserDto {
   })
   @IsString()
   @MinLength(8)
-  @Matches(
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-    {
-      message:
-        'Password must contain at least one letter, one number, and one special character',
-    },
-  )
+  @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, {
+    message:
+      'Password must contain at least one letter, one number, and one special character',
+  })
   password: string;
 
   @ApiProperty({
@@ -71,4 +75,4 @@ export class CreateUserDto {
   })
   @IsBoolean()
   agreeToMarketing: boolean;
-} 
+}

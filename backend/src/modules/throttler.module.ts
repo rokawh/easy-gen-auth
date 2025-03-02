@@ -6,7 +6,9 @@ import { ThrottlerModuleOptions } from '@nestjs/throttler';
 @Module({
   imports: [
     NestThrottlerModule.forRootAsync({
-      useFactory: async (configService: ConfigService): Promise<ThrottlerModuleOptions> => ({
+      useFactory: async (
+        configService: ConfigService,
+      ): Promise<ThrottlerModuleOptions> => ({
         throttlers: [
           {
             ttl: configService.get<number>('app.throttle.ttl', 60),
@@ -18,4 +20,4 @@ import { ThrottlerModuleOptions } from '@nestjs/throttler';
     }),
   ],
 })
-export class ThrottlerModule {} 
+export class ThrottlerModule {}

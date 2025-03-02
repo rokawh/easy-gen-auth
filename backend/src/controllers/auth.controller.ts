@@ -1,4 +1,12 @@
-import { Controller, Post, Body, HttpCode, HttpStatus, Req, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpCode,
+  HttpStatus,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Request } from 'express';
 import { AuthService } from '@services/auth.service';
@@ -26,10 +34,7 @@ export class AuthController {
     status: HttpStatus.TOO_MANY_REQUESTS,
     description: 'Too many requests, please try again later',
   })
-  async signup(
-    @Body() createUserDto: CreateUserDto,
-    @Req() req: Request,
-  ) {
+  async signup(@Body() createUserDto: CreateUserDto, @Req() req: Request) {
     return this.authService.signup(createUserDto, req);
   }
 
@@ -48,10 +53,7 @@ export class AuthController {
     status: HttpStatus.TOO_MANY_REQUESTS,
     description: 'Too many requests, please try again later',
   })
-  async login(
-    @Body() loginDto: LoginDto,
-    @Req() req: Request,
-  ) {
+  async login(@Body() loginDto: LoginDto, @Req() req: Request) {
     return this.authService.login(loginDto, req);
   }
-} 
+}

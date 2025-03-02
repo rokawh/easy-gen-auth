@@ -4,10 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { HealthController } from '@controllers/health.controller';
 
 @Module({
-  imports: [
-    TerminusModule,
-    MongooseModule,
-  ],
+  imports: [TerminusModule, MongooseModule],
   controllers: [HealthController],
 })
-export class HealthModule {} 
+export class HealthModule {}

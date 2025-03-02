@@ -30,4 +30,4 @@ import { SessionsController } from '@controllers/sessions.controller';
   providers: [AuthService, JwtStrategy, SessionsService],
   exports: [JwtStrategy, PassportModule, SessionsService],
 })
-export class AuthModule {} 
+export class AuthModule {}

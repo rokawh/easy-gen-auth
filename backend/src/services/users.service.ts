@@ -1,4 +1,8 @@
-import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
@@ -41,10 +45,7 @@ export class UsersService {
     return user;
   }
 
-  async validatePassword(
-    user: User,
-    password: string,
-  ): Promise<boolean> {
+  async validatePassword(user: User, password: string): Promise<boolean> {
     return bcrypt.compare(password, user.password);
   }
-} 
+}

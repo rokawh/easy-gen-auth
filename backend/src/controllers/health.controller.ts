@@ -24,9 +24,7 @@ export class HealthController {
     description: 'Application health status',
   })
   check(): Promise<HealthCheckResult> {
-    return this.health.check([
-      () => this.db.pingCheck('mongodb'),
-    ]);
+    return this.health.check([() => this.db.pingCheck('mongodb')]);
   }
 
   @Get('memory')
@@ -37,9 +35,7 @@ export class HealthController {
     description: 'Memory usage statistics',
   })
   async checkMemory(): Promise<HealthCheckResult> {
-    return this.health.check([
-      () => this.checkMemoryUsage(),
-    ]);
+    return this.health.check([() => this.checkMemoryUsage()]);
   }
 
   private async checkMemoryUsage(): Promise<HealthIndicatorResult> {
@@ -47,10 +43,10 @@ export class HealthController {
     return {
       memory: {
         status: 'up',
-        heapUsed: `${Math.round(used.heapUsed / 1024 / 1024 * 100) / 100} MB`,
-        heapTotal: `${Math.round(used.heapTotal / 1024 / 1024 * 100) / 100} MB`,
-        rss: `${Math.round(used.rss / 1024 / 1024 * 100) / 100} MB`,
+        heapUsed: `${Math.round((used.heapUsed / 1024 / 1024) * 100) / 100} MB`,
+        heapTotal: `${Math.round((used.heapTotal / 1024 / 1024) * 100) / 100} MB`,
+        rss: `${Math.round((used.rss / 1024 / 1024) * 100) / 100} MB`,
       },
     };
   }
-} 
+}

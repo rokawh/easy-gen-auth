@@ -16,7 +16,10 @@ export class LoggerService implements NestLoggerService {
         winston.format.json(),
       ),
       transports: [
-        new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+        new winston.transports.File({
+          filename: 'logs/error.log',
+          level: 'error',
+        }),
         new winston.transports.File({ filename: 'logs/combined.log' }),
       ],
     });
@@ -52,4 +55,4 @@ export class LoggerService implements NestLoggerService {
   verbose(message: string, context?: string) {
     this.logger.verbose(message, { context });
   }
-} 
+}

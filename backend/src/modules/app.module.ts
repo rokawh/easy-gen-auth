@@ -8,7 +8,7 @@ import { CommonModule } from '@modules/common.module';
 import { ThrottlerModule } from '@modules/throttler.module';
 import { HealthModule } from '@modules/health.module';
 import { MongoError } from 'mongodb';
-import { 
+import {
   configValidationSchema,
   appConfig,
   databaseConfig,

@@ -24,4 +24,4 @@ export class LoginDto {
   @IsBoolean()
   @IsOptional()
   rememberMe?: boolean;
-} 
+}
