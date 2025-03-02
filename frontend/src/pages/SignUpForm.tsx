@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import easyGeneratorLogo from '../assets/easy-generator-logo.svg';
+import { useAuth } from '@hooks/useAuth';
+import easyGeneratorLogo from '@assets/easy-generator-logo.svg';
 
 const COMPANY_SIZES = [
   '1-99 employees',

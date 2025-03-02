@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import easyGeneratorLogo from '../assets/easy-generator-logo.svg';
+import { useAuth } from '@hooks/useAuth';
+import easyGeneratorLogo from '@assets/easy-generator-logo.svg';
 
 export const LoginForm: React.FC = () => {
   const { login } = useAuth();

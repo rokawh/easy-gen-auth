@@ -23,7 +23,16 @@ async function bootstrap() {
   app.useLogger(logger);
   
   // Security
-  app.use(helmet());
+  app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: [`'self'`],
+        styleSrc: [`'self'`, `'unsafe-inline'`],
+        imgSrc: [`'self'`, 'data:', 'validator.swagger.io'],
+        scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+      },
+    },
+  }));
   app.enableCors({
     origin: isDevelopment ? true : configService.get('app.corsOrigin'),
     credentials: true,
@@ -44,28 +53,28 @@ async function bootstrap() {
   }));
 
   // Swagger documentation
-  if (isDevelopment) {
-    const config = new DocumentBuilder()
-      .setTitle('Easy Generator Auth API')
-      .setDescription('Authentication API documentation')
-      .setVersion('1.0')
-      .addBearerAuth()
-      .build();
-    
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api', app, document);
-  }
+  const config = new DocumentBuilder()
+    .setTitle('Easy Generator Auth API')
+    .setDescription('Authentication API documentation')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+  
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+    customSiteTitle: 'Easy Generator Auth API Docs',
+  });
 
   // Start server
   await app.listen(port);
   logger.log(`Application is running on: http://localhost:${port}`, 'Bootstrap');
-  
-  if (isDevelopment) {
-    logger.log(
-      `Swagger documentation is available at: http://localhost:${port}/api`,
-      'Bootstrap',
-    );
-  }
+  logger.log(
+    `Swagger documentation is available at: http://localhost:${port}/api`,
+    'Bootstrap',
+  );
 }
 
 bootstrap().catch((error) => {

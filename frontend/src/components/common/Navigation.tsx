@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import easyGeneratorLogo from '../../assets/easy-generator-logo.svg';
+import easyGeneratorLogo from '@assets/easy-generator-logo.svg';
 
 interface NavigationProps {
   onLogout: () => void;

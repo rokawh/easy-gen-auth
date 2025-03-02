@@ -1,16 +1,32 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Session, SessionDocument } from '@schemas/session.schema';
 import { ConfigService } from '@nestjs/config';
-import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
-export class SessionsService {
+export class SessionsService implements OnModuleInit, OnModuleDestroy {
+  private cleanupInterval: NodeJS.Timeout;
+
   constructor(
     @InjectModel(Session.name) private readonly sessionModel: Model<SessionDocument>,
     private readonly configService: ConfigService,
   ) {}
+
+  onModuleInit() {
+    // Run cleanup every hour
+    this.cleanupInterval = setInterval(() => {
+      this.handleExpiredSessions().catch(error => {
+        console.error('Error cleaning up expired sessions:', error);
+      });
+    }, 60 * 60 * 1000); // 1 hour
+  }
+
+  onModuleDestroy() {
+    if (this.cleanupInterval) {
+      clearInterval(this.cleanupInterval);
+    }
+  }
 
   async createSession(
     userId: string,
@@ -102,7 +118,6 @@ export class SessionsService {
     );
   }
 
-  @Cron(CronExpression.EVERY_HOUR)
   async handleExpiredSessions() {
     try {
       const result = await this.cleanupExpiredSessions();

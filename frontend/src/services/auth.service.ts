@@ -1,5 +1,5 @@
-import { SignUpData, LoginData, AuthResponse } from '../types/auth';
-import axiosInstance from './axios.interceptor';
+import { SignUpData, LoginData, AuthResponse } from '@/types/auth';
+import axiosInstance from '@services/axios.interceptor';
 
 const authService = {
   async signup(data: SignUpData): Promise<AuthResponse> {

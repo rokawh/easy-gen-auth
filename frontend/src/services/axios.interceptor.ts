@@ -1,5 +1,5 @@
 import axios from 'axios';
-import authService from './auth.service';
+import authService from '@services/auth.service';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 

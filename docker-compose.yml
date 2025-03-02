@@ -1,0 +1,79 @@
+# version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    platform: linux/arm64
+    container_name: mongodb
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=easy-generator
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  backend:
+    platform: linux/arm64
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - MONGODB_URI=mongodb://mongodb:27017/easy-generator
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRATION=15d
+      - CORS_ORIGIN=http://localhost:5173
+      - THROTTLE_TTL=60
+      - THROTTLE_LIMIT=10
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    volumes:
+      - backend_logs:/usr/src/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  frontend:
+    platform: linux/arm64
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: always
+    environment:
+      - VITE_API_URL=http://localhost:3000
+    ports:
+      - "5173:5173"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+  backend_logs: 

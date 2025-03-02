@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthState, SignUpData, LoginData } from '../types/auth';
-import authService from '../services/auth.service';
+import { AuthState, SignUpData, LoginData } from '@/types/auth';
+import authService from '@services/auth.service';
 
 export const useAuth = () => {
   const navigate = useNavigate();

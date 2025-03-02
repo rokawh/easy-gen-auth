@@ -1,12 +1,14 @@
-import { Controller, Post, Body, HttpCode, HttpStatus, Req } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus, Req, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Request } from 'express';
 import { AuthService } from '@services/auth.service';
 import { CreateUserDto } from '@dto/create-user.dto';
 import { LoginDto } from '@dto/login.dto';
+import { CustomThrottlerGuard } from '@guards/throttler.guard';
 
 @ApiTags('Authentication')
 @Controller('auth')
+@UseGuards(CustomThrottlerGuard)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -19,6 +21,10 @@ export class AuthController {
   @ApiResponse({
     status: HttpStatus.CONFLICT,
     description: 'Email already exists',
+  })
+  @ApiResponse({
+    status: HttpStatus.TOO_MANY_REQUESTS,
+    description: 'Too many requests, please try again later',
   })
   async signup(
     @Body() createUserDto: CreateUserDto,
@@ -37,6 +43,10 @@ export class AuthController {
   @ApiResponse({
     status: HttpStatus.UNAUTHORIZED,
     description: 'Invalid credentials',
+  })
+  @ApiResponse({
+    status: HttpStatus.TOO_MANY_REQUESTS,
+    description: 'Too many requests, please try again later',
   })
   async login(
     @Body() loginDto: LoginDto,

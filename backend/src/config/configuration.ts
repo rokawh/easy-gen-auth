@@ -9,6 +9,8 @@ export const configValidationSchema = Joi.object({
   NODE_ENV: Joi.string()
     .valid('development', 'production', 'test')
     .default('development'),
+  THROTTLE_TTL: Joi.number().default(process.env.THROTTLE_TTL || 60),
+  THROTTLE_LIMIT: Joi.number().default(process.env.THROTTLE_LIMIT || 10),
 });
 
 export const appConfig = registerAs('app', () => {
@@ -16,7 +18,11 @@ export const appConfig = registerAs('app', () => {
   return {
     port,
     nodeEnv: process.env.NODE_ENV || 'development',
-    corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:80',
+    throttle: {
+      ttl: parseInt(process.env.THROTTLE_TTL || '60', 10),
+      limit: parseInt(process.env.THROTTLE_LIMIT || '10', 10),
+    },
   };
 });
 
@@ -27,4 +33,4 @@ export const databaseConfig = registerAs('database', () => ({
 export const authConfig = registerAs('auth', () => ({
   jwtSecret: process.env.JWT_SECRET || 'your-super-secret-key-change-in-production',
   jwtExpiration: process.env.JWT_EXPIRATION || '15d',
-})); 
+}));
