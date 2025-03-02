@@ -104,7 +104,7 @@ docker-compose up -d
 ```
 
 The application will be available at:
-- Frontend: http://localhost
+- Frontend: http://localhost:5173
 - Backend API: http://localhost:3000
 - API Documentation: http://localhost:3000/api
 
@@ -112,8 +112,8 @@ The application will be available at:
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd easy-generator-auth
+git clone git@github.com:rokawh/easy-gen-auth.git
+cd easy-gen-auth
 ```
 
 2. Install backend dependencies:
@@ -144,7 +144,7 @@ JWT_SECRET=your-super-secret-key-change-in-production
 JWT_EXPIRATION=15d
 
 # Security
-CORS_ORIGIN=http://localhost:80
+CORS_ORIGIN=http://localhost:5173
 
 # Rate Limiting
 THROTTLE_TTL=60
@@ -185,7 +185,7 @@ cd frontend
 npm run dev
 ```
 
-The frontend application will start on http://localhost:80
+The frontend application will start on http://localhost:5173
 
 ## API Documentation
 
