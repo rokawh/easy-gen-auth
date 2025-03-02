@@ -19,7 +19,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install production dependencies
-RUN npm ci --only=production
+RUN npm install --omit=dev
 
 COPY --from=builder /usr/src/app/dist ./dist
 
