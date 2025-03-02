@@ -1,8 +1,6 @@
 import { SignUpData, LoginData, AuthResponse } from '../types/auth';
 import axiosInstance from './axios.interceptor';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-
 const authService = {
   async signup(data: SignUpData): Promise<AuthResponse> {
     const response = await axiosInstance.post<AuthResponse>('/auth/signup', data);

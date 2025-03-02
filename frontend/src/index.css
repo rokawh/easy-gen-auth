@@ -6,7 +6,7 @@
   html {
     font-family: Inter, system-ui, -apple-system, sans-serif;
   }
-  
+
   body {
     @apply antialiased bg-gray-50;
     margin: 0;
@@ -53,7 +53,7 @@
 .overflow-y-auto {
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
-  
+
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -69,7 +69,7 @@
 
   &:hover {
     scrollbar-color: #CBD5E1 transparent;
-    
+
     &::-webkit-scrollbar-thumb {
       background-color: #CBD5E1;
     }
