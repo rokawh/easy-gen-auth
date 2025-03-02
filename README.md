@@ -16,33 +16,41 @@ A full-stack authentication module built with React, NestJS, and MongoDB. This p
 - Health monitoring
 - Docker containerization
 - Database indexing for performance
+- Session management with automatic cleanup
 
 ## Tech Stack
 
 ### Frontend
 - React 18 with TypeScript
+- Mantine UI Framework (@mantine/core, @mantine/form, @mantine/hooks)
 - React Router for navigation
-- TailwindCSS for styling
+- TailwindCSS with tailwind-merge for styling
 - Axios for API calls
-- React Hook Form for form handling
+- React Query (@tanstack/react-query) for data fetching
+- Tabler Icons for UI icons
+- Emotion for CSS-in-JS
 
 ### Backend
-- NestJS with TypeScript
-- MongoDB with Mongoose
-- JWT for authentication
-- Class Validator for DTO validation
+- NestJS 11 with TypeScript
+- MongoDB with Mongoose ODM
+- JWT for authentication (with @nestjs/jwt)
+- Passport.js for authentication strategies
+- Class Validator & Class Transformer for DTO validation
 - Swagger/OpenAPI for documentation
 - Helmet for security headers
-- Winston for logging
+- Winston & nest-winston for logging
 - Throttler for rate limiting
 - Terminus for health checks
+- Compression for response optimization
+- Cookie Parser for cookie handling
+- Joi for configuration validation
 
 ## Prerequisites
 
 Before running the application, make sure you have one of the following:
 - Docker and Docker Compose installed (recommended)
 OR
-- Node.js (v18 or later)
+- Node.js (v20 or later)
 - MongoDB (v4.4 or later)
 - npm or yarn
 
@@ -188,6 +196,9 @@ Available endpoints:
 - POST /auth/signup - Register a new user
 - POST /auth/login - Authenticate a user
 - GET /protected - Example protected route
+- GET /sessions - Get user's active sessions
+- DELETE /sessions - Revoke all sessions except current
+- DELETE /sessions/:id - Revoke specific session
 - GET /health - Check application health
 - GET /health/memory - Check memory usage
 
@@ -200,7 +211,8 @@ Available endpoints:
 - Helmet security headers
 - Input validation
 - Rate limiting
-- Session management
+- Session management with automatic cleanup
+- Automatic inactive session cleanup
 
 ## Health Monitoring
 
@@ -265,11 +277,3 @@ The frontend follows React best practices:
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For support, please open an issue in the repository. 
