@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '@hooks/useAuth';
+
 import easyGeneratorLogo from '@assets/easy-generator-logo.svg';
+import { useAuth } from '@hooks/useAuth';
+
+import { ApiError } from '@/types/api';
 
 const COMPANY_SIZES = [
   '1-99 employees',
@@ -179,10 +182,11 @@ export const SignUpForm: React.FC = () => {
     setIsLoading(true);
     try {
       await signup(formData);
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const apiError = error as ApiError;
       setErrors({
         submit:
-          error.response?.data?.message || 'An error occurred during sign up',
+          apiError.response?.data?.message || 'An error occurred during sign up',
       });
     } finally {
       setIsLoading(false);

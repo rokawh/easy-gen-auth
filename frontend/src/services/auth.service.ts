@@ -1,5 +1,6 @@
-import { SignUpData, LoginData, AuthResponse } from '@/types/auth';
 import axiosInstance from '@services/axios.interceptor';
+
+import { SignUpData, LoginData, AuthResponse, Session } from '@/types/auth';
 
 const authService = {
   async signup(data: SignUpData): Promise<AuthResponse> {
@@ -42,7 +43,7 @@ const authService = {
   },
 
   // New methods for session management
-  async getSessions(): Promise<any[]> {
+  async getSessions(): Promise<Session[]> {
     const response = await axiosInstance.get('/sessions');
     return response.data;
   },

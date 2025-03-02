@@ -37,4 +37,13 @@ export interface AuthState {
   user: User | null;
   token: string | null;
   isAuthenticated: boolean;
+}
+
+export interface Session {
+  id: string;
+  userAgent: string;
+  ipAddress: string;
+  lastActivity: string;
+  expiresAt: string;
+  isActive: boolean;
 } 

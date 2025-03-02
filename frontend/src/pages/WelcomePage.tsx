@@ -1,7 +1,8 @@
 import React from 'react';
-import { useAuth } from '@hooks/useAuth';
+
 import { Navigation } from '@components/common/Navigation';
 import { Card } from '@components/common/ui';
+import { useAuth } from '@hooks/useAuth';
 
 export const WelcomePage: React.FC = () => {
   const { user, logout } = useAuth();

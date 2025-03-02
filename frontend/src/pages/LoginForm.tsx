@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '@hooks/useAuth';
+
 import easyGeneratorLogo from '@assets/easy-generator-logo.svg';
+import { useAuth } from '@hooks/useAuth';
+
+import { ApiError } from '@/types/api';
 
 export const LoginForm: React.FC = () => {
   const { login } = useAuth();
@@ -61,9 +64,10 @@ export const LoginForm: React.FC = () => {
     try {
       await login(formData);
       setSessionMessage('');
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const apiError = error as ApiError;
       setErrors({
-        submit: error.response?.data?.message || 'Invalid credentials',
+        submit: apiError.response?.data?.message || 'Invalid credentials',
       });
     } finally {
       setIsLoading(false);

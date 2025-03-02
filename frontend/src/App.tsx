@@ -4,11 +4,13 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom';
-import { LoginForm } from './pages/LoginForm';
-import { SignUpForm } from './pages/SignUpForm';
-import { WelcomePage } from './pages/WelcomePage';
-import { SessionsManagement } from './pages/SessionsManagement';
-import { ProtectedRoute } from './pages/ProtectedRoute';
+
+import { LoginForm } from '@pages/LoginForm';
+import { ProtectedRoute } from '@pages/ProtectedRoute';
+import { SessionsManagement } from '@pages/SessionsManagement';
+import { SignUpForm } from '@pages/SignUpForm';
+import { WelcomePage } from '@pages/WelcomePage';
+
 
 function App() {
   return (
